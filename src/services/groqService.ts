@@ -13,43 +13,21 @@ export interface ChatResponse {
   error?: string;
 }
 
-export type TaskType = 'resume' | 'cover-letter' | 'outreach-email' | 'interview-prep' | 'general';
+const getSystemPrompt = (job?: Job): string => {
+  const basePrompt = `You are an expert career consultant and resume specialist with 15+ years of experience helping candidates land their dream jobs at top companies. You provide professional, actionable advice that gets results.
 
-const getSystemPrompt = (taskType: TaskType, job?: Job): string => {
-  const basePrompt = `You are an expert career consultant and resume specialist with 15+ years of experience helping candidates land their dream jobs at top companies. You provide professional, actionable advice that gets results.`;
+Your expertise includes:
+- Resume optimization and ATS optimization
+- Cover letter writing and personalization
+- Interview preparation and behavioral questions
+- Salary negotiation strategies
+- Professional networking and outreach
+- Career path planning and development
+- Job search strategies and market insights
+- LinkedIn profile optimization
+- Professional skill development advice
 
-  const taskPrompts = {
-    resume: `Focus on tailoring resumes to specific job descriptions. Provide specific suggestions for:
-- Keywords to include from the job description
-- Skills to highlight
-- Experience to emphasize
-- Quantifiable achievements to add
-- Format improvements
-- ATS optimization tips`,
-    
-    'cover-letter': `Specialize in creating compelling cover letters that:
-- Address the specific role and company
-- Highlight relevant experience and skills
-- Show genuine interest and research about the company
-- Include a strong opening and closing
-- Maintain professional yet personable tone`,
-    
-    'outreach-email': `Expert in crafting professional outreach emails for:
-- Networking with employees at target companies
-- Following up on applications
-- Requesting informational interviews
-- Building professional relationships
-- Cold outreach that gets responses`,
-    
-    'interview-prep': `Provide comprehensive interview preparation including:
-- Common questions for the specific role
-- STAR method examples
-- Questions to ask the interviewer
-- Company research insights
-- Salary negotiation tips`,
-    
-    general: `Provide general career advice and answer any job-related questions.`
-  };
+You provide specific, actionable advice tailored to each user's situation and always maintain a professional, encouraging tone.`;
 
   let jobContext = '';
   if (job) {
@@ -66,20 +44,16 @@ Tags: ${job.tags.join(', ')}
 ${job.salary ? `Salary: ${job.salary}` : ''}
 ${job.companyDescription ? `About Company: ${job.companyDescription}` : ''}
 
-Use this job information as context for your advice.`;
+Use this job information as context for your advice when relevant.`;
   }
 
-  return `${basePrompt}
-
-${taskPrompts[taskType]}
-${jobContext}
+  return `${basePrompt}${jobContext}
 
 Always be specific, actionable, and professional in your responses.`;
 };
 
 export const sendChatMessage = async (
   messages: ChatMessage[],
-  taskType: TaskType = 'general',
   selectedJob?: Job
 ): Promise<ChatResponse> => {
   const apiKey = process.env.REACT_APP_GROQ_API_KEY;
@@ -95,7 +69,7 @@ export const sendChatMessage = async (
   try {
     const systemMessage: ChatMessage = {
       role: 'system',
-      content: getSystemPrompt(taskType, selectedJob)
+      content: getSystemPrompt(selectedJob)
     };
 
     const response = await fetch(GROQ_API_URL, {
@@ -105,7 +79,7 @@ export const sendChatMessage = async (
         'Authorization': `Bearer ${apiKey}`
       },
       body: JSON.stringify({
-        model: 'mixtral-8x7b-32768', // Fast and good for general tasks
+        model: 'llama3-8b-8192', // Updated model that's currently supported
         messages: [systemMessage, ...messages],
         max_tokens: 2048,
         temperature: 0.7,
@@ -138,27 +112,12 @@ export const sendChatMessage = async (
   }
 };
 
-// Pre-defined task templates
-export const getTaskTemplate = (taskType: TaskType, job?: Job): string => {
-  const templates = {
-    resume: job ? 
-      `I want to tailor my resume for the ${job.title} position at ${job.company}. Can you help me optimize it based on their job description and requirements?` :
-      'I want to improve my resume. Can you provide general resume optimization tips?',
-    
-    'cover-letter': job ?
-      `Please help me write a compelling cover letter for the ${job.title} position at ${job.company}.` :
-      'I need help writing a cover letter for a job application.',
-    
-    'outreach-email': job ?
-      `I want to write a networking email to someone at ${job.company} about the ${job.title} position. Can you help me craft a professional outreach message?` :
-      'I need help writing a professional networking email.',
-    
-    'interview-prep': job ?
-      `I have an interview for the ${job.title} position at ${job.company}. Can you help me prepare by providing potential questions and advice?` :
-      'I need help preparing for a job interview.',
-    
-    general: 'I have a career-related question. Can you help me?'
-  };
-
-  return templates[taskType];
+// Test function to verify GROQ API key is working
+export const testGroqConnection = async (): Promise<ChatResponse> => {
+  return sendChatMessage([
+    {
+      role: 'user',
+      content: 'Hello, can you confirm that you are working as a career expert? Please respond with a brief introduction.'
+    }
+  ]);
 };

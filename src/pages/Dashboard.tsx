@@ -71,7 +71,7 @@ const Dashboard = () => {
     <div className="min-h-screen pb-20" style={{ background: 'var(--color-background)' }}>
       <Navigation />
       
-      <div className="container mx-auto px-4 py-6">
+      <div className="container mx-auto px-2 sm:px-4 py-4 sm:py-6">
         <div className="mb-6 animate-fade-in">
           <h1 className="text-title-large mb-2" style={{ color: 'var(--color-text-primary)' }}>Job Tracker</h1>
           <p className="text-body-medium" style={{ color: 'var(--color-text-secondary)' }}>Manage your job interests and track applications</p>
@@ -80,14 +80,14 @@ const Dashboard = () => {
 
         <div className="card mb-6 animate-fade-in">
           <div style={{ borderBottom: '1px solid var(--color-border)' }}>
-            <nav className="flex space-x-8 px-6">
+            <nav className="flex space-x-2 sm:space-x-8 px-2 sm:px-6 overflow-x-auto">
               {tabs.map(tab => {
                 const isActive = activeTab === tab.key;
                 return (
                   <button
                     key={tab.key}
                     onClick={() => setActiveTab(tab.key)}
-                    className={`py-4 px-1 border-b-2 font-medium text-body-medium transition-all ${
+                    className={`py-3 sm:py-4 px-1 border-b-2 font-medium text-sm sm:text-body-medium transition-all whitespace-nowrap ${
                       isActive
                         ? 'border-current'
                         : 'border-transparent hover:border-current'
@@ -135,42 +135,47 @@ const Dashboard = () => {
                   };
 
                   return (
-                    <div key={application.jobId} className="card spacing-md animate-fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
-                      <div className="flex justify-between items-start mb-4">
+                    <div key={application.jobId} className="card p-3 sm:p-4 animate-fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
+                      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-4 space-y-3 sm:space-y-0">
                         <div className="flex-1">
                           <div className="flex items-center gap-3 mb-3">
-                            <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center">
-                              <span className="text-white font-bold text-sm">
+                            <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                              <span className="text-white font-bold text-xs sm:text-sm">
                                 {job.company.charAt(0).toUpperCase()}
                               </span>
                             </div>
-                            <div>
-                              <h3 className="text-heading-medium" style={{ color: 'var(--color-text-primary)' }}>{job.title}</h3>
-                              <p className="text-body-medium" style={{ color: 'var(--color-text-secondary)' }}>{job.company}</p>
+                            <div className="min-w-0 flex-1">
+                              <h3 className="text-base sm:text-lg font-semibold leading-tight" style={{ color: 'var(--color-text-primary)' }}>{job.title}</h3>
+                              <p className="text-sm sm:text-base" style={{ color: 'var(--color-text-secondary)' }}>{job.company}</p>
                             </div>
                           </div>
                           
-                          <div className="flex items-center gap-4 text-body-small mb-3" style={{ color: 'var(--color-text-muted)' }}>
+                          <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4 text-xs sm:text-sm mb-3" style={{ color: 'var(--color-text-muted)' }}>
                             <span className="flex items-center gap-1">📍 {job.location}</span>
                             <span className="flex items-center gap-1">🕒 {application.appliedAt.toLocaleDateString()}</span>
                           </div>
                           
                           {job.salary && (
-                            <p className="text-body-medium font-semibold mb-3" style={{ color: 'var(--color-accent-green)' }}>💰 {job.salary}</p>
+                            <p className="text-sm sm:text-base font-semibold mb-3" style={{ color: 'var(--color-accent-green)' }}>💰 {job.salary}</p>
                           )}
                           
-                          <div className="flex flex-wrap gap-2">
-                            {job.tags.slice(0, 3).map((tag, tagIndex) => (
-                              <span key={tagIndex} className="chip chip-default">
+                          <div className="flex flex-wrap gap-1 sm:gap-2">
+                            {job.tags.slice(0, 2).map((tag, tagIndex) => (
+                              <span key={tagIndex} className="px-2 py-1 bg-gray-100 text-gray-700 text-xs sm:text-sm rounded-full">
                                 {tag}
                               </span>
                             ))}
+                            {job.tags.length > 2 && (
+                              <span className="px-2 py-1 bg-gray-100 text-gray-500 text-xs sm:text-sm rounded-full">
+                                +{job.tags.length - 2}
+                              </span>
+                            )}
                           </div>
                         </div>
                         
-                        <div className="text-right">
+                        <div className="sm:text-right">
                           <span 
-                            className="chip text-caption font-semibold"
+                            className="inline-block px-2 py-1 text-xs sm:text-sm font-semibold rounded-full"
                             style={getStatusStyle(application.status)}
                           >
                             {application.status === 'not_interested' ? 'Not Interested' : 
@@ -180,35 +185,33 @@ const Dashboard = () => {
                       </div>
 
                       {/* Action Buttons */}
-                      <div className="flex gap-3 mt-4">
+                      <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 mt-4">
                         <Link
                           to={`/job/${application.jobId}`}
-                          className="btn-secondary flex items-center justify-center gap-2 text-center"
+                          className="flex items-center justify-center gap-2 text-center px-3 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 text-sm font-medium"
                         >
                           <span>👁️</span>
-                          <span>View Details</span>
+                          <span className="hidden sm:inline">View Details</span>
+                          <span className="sm:hidden">View</span>
                         </Link>
                         
                         {application.status === 'interested' && (
                           <>
                             <button
                               onClick={() => handleApplyAtCompany(application.jobId, job.company)}
-                              className="btn-primary flex-1 flex items-center justify-center gap-2"
+                              className="flex-1 bg-blue-600 text-white px-3 py-2 rounded-lg hover:bg-blue-700 flex items-center justify-center gap-2 text-sm font-medium"
                             >
                               <span>🚀</span>
-                              <span>Apply at Company</span>
+                              <span className="hidden sm:inline">Apply at Company</span>
+                              <span className="sm:hidden">Apply</span>
                             </button>
                             <button
                               onClick={() => handleStatusChange(application.jobId, 'applied')}
-                              className="btn-secondary flex items-center justify-center gap-2"
-                              style={{ 
-                                background: 'var(--color-accent-green)', 
-                                color: 'white',
-                                borderColor: 'var(--color-accent-green)'
-                              }}
+                              className="bg-green-600 text-white px-3 py-2 rounded-lg hover:bg-green-700 flex items-center justify-center gap-2 text-sm font-medium"
                             >
                               <span>✅</span>
-                              <span>Mark Applied</span>
+                              <span className="hidden sm:inline">Mark Applied</span>
+                              <span className="sm:hidden">Applied</span>
                             </button>
                           </>
                         )}
@@ -216,25 +219,22 @@ const Dashboard = () => {
                         {application.status === 'applied' && (
                           <button
                             onClick={() => handleStatusChange(application.jobId, 'interested')}
-                            className="btn-secondary flex items-center justify-center gap-2"
-                            style={{ 
-                              background: 'var(--color-accent-yellow)', 
-                              color: '#B8860B',
-                              borderColor: 'var(--color-accent-yellow)'
-                            }}
+                            className="bg-yellow-500 text-white px-3 py-2 rounded-lg hover:bg-yellow-600 flex items-center justify-center gap-2 text-sm font-medium"
                           >
                             <span>↩️</span>
-                            <span>Mark as Interested</span>
+                            <span className="hidden sm:inline">Mark as Interested</span>
+                            <span className="sm:hidden">Interested</span>
                           </button>
                         )}
 
                         {application.status === 'not_interested' && (
                           <button
                             onClick={() => handleStatusChange(application.jobId, 'interested')}
-                            className="btn-secondary flex items-center justify-center gap-2"
+                            className="bg-blue-600 text-white px-3 py-2 rounded-lg hover:bg-blue-700 flex items-center justify-center gap-2 text-sm font-medium"
                           >
                             <span>⭐</span>
-                            <span>Mark as Interested</span>
+                            <span className="hidden sm:inline">Mark as Interested</span>
+                            <span className="sm:hidden">Interested</span>
                           </button>
                         )}
                       </div>

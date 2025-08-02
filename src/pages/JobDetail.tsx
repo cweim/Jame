@@ -108,10 +108,10 @@ const JobDetail = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50 pb-16">
+    <div className="min-h-screen bg-gray-50 pb-20">
       <Navigation />
       
-      <div className="container mx-auto px-4 py-6">
+      <div className="container mx-auto px-2 sm:px-4 py-4 sm:py-6">
         {/* Header */}
         <div className="mb-6">
           <button
@@ -121,20 +121,20 @@ const JobDetail = () => {
             ← Back to Track
           </button>
           
-          <div className="bg-white rounded-lg shadow p-6">
-            <div className="flex justify-between items-start mb-4">
-              <div className="flex-1">
-                <h1 className="text-2xl font-bold text-gray-900 mb-2">{job.title}</h1>
-                <p className="text-lg text-gray-700 mb-1">{job.company}</p>
-                <p className="text-gray-600">{job.location}</p>
+          <div className="bg-white rounded-lg shadow p-4 sm:p-6">
+            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-4 space-y-3 sm:space-y-0">
+              <div className="flex-1 min-w-0">
+                <h1 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2 leading-tight">{job.title}</h1>
+                <p className="text-base sm:text-lg text-gray-700 mb-1">{job.company}</p>
+                <p className="text-sm sm:text-base text-gray-600">{job.location}</p>
                 {job.salary && (
-                  <p className="text-green-600 font-semibold mt-2 text-lg">{job.salary}</p>
+                  <p className="text-green-600 font-semibold mt-2 text-base sm:text-lg">{job.salary}</p>
                 )}
               </div>
               
               {application && (
-                <div className="text-right">
-                  <span className={`inline-flex px-3 py-1 text-sm font-semibold rounded-full ${
+                <div className="sm:text-right">
+                  <span className={`inline-flex px-2 sm:px-3 py-1 text-xs sm:text-sm font-semibold rounded-full ${
                     application.status === 'applied' 
                       ? 'bg-green-100 text-green-800'
                       : application.status === 'interested'
@@ -151,11 +151,11 @@ const JobDetail = () => {
               )}
             </div>
 
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-1 sm:gap-2">
               {job.tags.map((tag, index) => (
                 <span
                   key={index}
-                  className="px-3 py-1 bg-blue-100 text-blue-800 text-sm rounded-full"
+                  className="px-2 sm:px-3 py-1 bg-blue-100 text-blue-800 text-xs sm:text-sm rounded-full"
                 >
                   {tag}
                 </span>
@@ -167,12 +167,12 @@ const JobDetail = () => {
         {/* Tabs */}
         <div className="bg-white rounded-lg shadow mb-6">
           <div className="border-b border-gray-200">
-            <nav className="flex space-x-8 px-6">
+            <nav className="flex space-x-2 sm:space-x-8 px-2 sm:px-6 overflow-x-auto">
               {tabs.map(tab => (
                 <button
                   key={tab.key}
                   onClick={() => setActiveTab(tab.key)}
-                  className={`py-4 px-1 border-b-2 font-medium text-sm flex items-center space-x-2 ${
+                  className={`py-3 sm:py-4 px-1 border-b-2 font-medium text-xs sm:text-sm flex items-center space-x-1 sm:space-x-2 whitespace-nowrap ${
                     activeTab === tab.key
                       ? 'border-blue-500 text-blue-600'
                       : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
@@ -185,19 +185,19 @@ const JobDetail = () => {
             </nav>
           </div>
 
-          <div className="p-6">
+          <div className="p-4 sm:p-6">
             {/* Details Tab */}
             {activeTab === 'details' && (
               <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">Job Description</h3>
+                <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-3 sm:mb-4">Job Description</h3>
                 <div className="prose prose-gray max-w-none">
                   <p className="text-gray-700 leading-relaxed whitespace-pre-line">
                     {job.description}
                   </p>
                 </div>
                 
-                <div className="mt-6 pt-6 border-t border-gray-200">
-                  <div className="grid grid-cols-2 gap-4 text-sm">
+                <div className="mt-4 sm:mt-6 pt-4 sm:pt-6 border-t border-gray-200">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-4 text-sm">
                     <div>
                       <span className="font-medium text-gray-600">Job Type:</span>
                       <p className="text-gray-900 capitalize">{job.type}</p>
@@ -214,7 +214,7 @@ const JobDetail = () => {
             {/* Requirements Tab */}
             {activeTab === 'requirements' && (
               <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">Job Requirements</h3>
+                <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-3 sm:mb-4">Job Requirements</h3>
                 <div className="space-y-3">
                   {job.requirements.map((req, index) => (
                     <div key={index} className="flex items-start">
@@ -229,15 +229,15 @@ const JobDetail = () => {
             {/* Company Tab */}
             {activeTab === 'company' && (
               <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">About {job.company}</h3>
+                <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-3 sm:mb-4">About {job.company}</h3>
                 <div className="prose prose-gray max-w-none">
                   <p className="text-gray-700 leading-relaxed">
                     {job.companyDescription || `${job.company} is a leading company in the ${job.tags[0]?.toLowerCase() || 'technology'} space, committed to innovation and excellence.`}
                   </p>
                 </div>
                 
-                <div className="mt-6 pt-6 border-t border-gray-200">
-                  <div className="grid grid-cols-1 gap-4 text-sm">
+                <div className="mt-4 sm:mt-6 pt-4 sm:pt-6 border-t border-gray-200">
+                  <div className="grid grid-cols-1 gap-2 sm:gap-4 text-sm">
                     <div>
                       <span className="font-medium text-gray-600">Industry:</span>
                       <p className="text-gray-900">{job.tags[0] || 'Technology'}</p>
@@ -254,20 +254,20 @@ const JobDetail = () => {
         </div>
 
         {/* Action Buttons */}
-        <div className="bg-white rounded-lg shadow p-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Take Action</h3>
-          <div className="flex flex-col sm:flex-row gap-3">
+        <div className="bg-white rounded-lg shadow p-4 sm:p-6">
+          <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-3 sm:mb-4">Take Action</h3>
+          <div className="flex flex-col gap-2 sm:gap-3">
             {(!application || application.status === 'interested') && (
               <>
                 <button
                   onClick={handleApplyAtCompany}
-                  className="flex-1 bg-blue-600 text-white py-3 px-4 rounded-lg font-medium hover:bg-blue-700 transition-colors flex items-center justify-center"
+                  className="bg-blue-600 text-white py-3 px-4 rounded-lg font-medium hover:bg-blue-700 transition-colors flex items-center justify-center text-sm sm:text-base"
                 >
                   🚀 Apply at Company
                 </button>
                 <button
                   onClick={() => handleStatusChange('applied')}
-                  className="bg-green-100 text-green-700 py-3 px-4 rounded-lg font-medium hover:bg-green-200 transition-colors"
+                  className="bg-green-600 text-white py-3 px-4 rounded-lg font-medium hover:bg-green-700 transition-colors text-sm sm:text-base"
                 >
                   ✅ Mark as Applied
                 </button>
@@ -277,7 +277,7 @@ const JobDetail = () => {
             {application?.status === 'applied' && (
               <button
                 onClick={() => handleStatusChange('interested')}
-                className="bg-yellow-100 text-yellow-700 py-3 px-4 rounded-lg font-medium hover:bg-yellow-200 transition-colors"
+                className="bg-yellow-500 text-white py-3 px-4 rounded-lg font-medium hover:bg-yellow-600 transition-colors text-sm sm:text-base"
               >
                 ↩️ Mark as Interested
               </button>
@@ -286,7 +286,7 @@ const JobDetail = () => {
             {(!application || application.status !== 'interested') && (
               <button
                 onClick={() => handleStatusChange('interested')}
-                className="bg-blue-100 text-blue-700 py-3 px-4 rounded-lg font-medium hover:bg-blue-200 transition-colors"
+                className="bg-blue-600 text-white py-3 px-4 rounded-lg font-medium hover:bg-blue-700 transition-colors text-sm sm:text-base"
               >
                 ⭐ Mark as Interested
               </button>

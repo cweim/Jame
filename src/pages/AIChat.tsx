@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Job, JobApplication } from '../types';
 import { getApplications } from '../utils/localStorage';
 import { getJobs, mockJobs } from '../services/mockData';
-import { sendChatMessage, ChatMessage, TaskType, getTaskTemplate } from '../services/groqService';
+import { sendChatMessage, ChatMessage } from '../services/groqService';
 import Navigation from '../components/Navigation';
 
 const AIChat = () => {
@@ -65,7 +65,7 @@ const AIChat = () => {
     setIsLoading(true);
 
     try {
-      const response = await sendChatMessage(newMessages, 'general', selectedJob || undefined);
+      const response = await sendChatMessage(newMessages, selectedJob || undefined);
       
       const assistantMessage: ChatMessage = {
         role: 'assistant',
@@ -171,7 +171,7 @@ const AIChat = () => {
               <div className="text-center text-gray-500 py-8">
                 <p className="text-lg mb-2">👋 Hi! I'm your AI career assistant</p>
                 <p className="text-sm">
-                  Select a task type and optionally a job, then ask me anything about your career!
+                  Ask me anything about your career! I can help with resumes, interviews, job search strategies, and more.
                 </p>
               </div>
             )}
