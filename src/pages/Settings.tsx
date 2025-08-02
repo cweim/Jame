@@ -12,7 +12,7 @@ const Settings = () => {
     linkedIn: '',
     portfolio: '',
     industries: [] as string[],
-    jobType: 'full-time' as 'intern' | 'full-time',
+    jobType: 'full-time' as 'intern' | 'full-time' | 'part-time' | 'remote',
     preferredLocations: [] as string[],
   });
   const [isEditing, setIsEditing] = useState(false);
@@ -24,7 +24,8 @@ const Settings = () => {
 
   const locations = [
     'San Francisco, CA', 'New York, NY', 'Austin, TX', 'Seattle, WA',
-    'Boston, MA', 'Los Angeles, CA', 'Chicago, IL', 'Remote'
+    'Boston, MA', 'Los Angeles, CA', 'Chicago, IL', 'Singapore', 
+    'Kuala Lumpur, Malaysia', 'Remote'
   ];
 
   useEffect(() => {
@@ -205,13 +206,13 @@ const Settings = () => {
                   Job Type
                 </label>
                 {isEditing ? (
-                  <div className="flex space-x-4">
+                  <div className="grid grid-cols-2 gap-2">
                     <label className="flex items-center">
                       <input
                         type="radio"
                         value="intern"
                         checked={formData.jobType === 'intern'}
-                        onChange={(e) => setFormData(prev => ({ ...prev, jobType: e.target.value as 'intern' | 'full-time' }))}
+                        onChange={(e) => setFormData(prev => ({ ...prev, jobType: e.target.value as 'intern' | 'full-time' | 'part-time' | 'remote' }))}
                         className="mr-2"
                       />
                       Internship
@@ -221,10 +222,30 @@ const Settings = () => {
                         type="radio"
                         value="full-time"
                         checked={formData.jobType === 'full-time'}
-                        onChange={(e) => setFormData(prev => ({ ...prev, jobType: e.target.value as 'intern' | 'full-time' }))}
+                        onChange={(e) => setFormData(prev => ({ ...prev, jobType: e.target.value as 'intern' | 'full-time' | 'part-time' | 'remote' }))}
                         className="mr-2"
                       />
                       Full-time
+                    </label>
+                    <label className="flex items-center">
+                      <input
+                        type="radio"
+                        value="part-time"
+                        checked={formData.jobType === 'part-time'}
+                        onChange={(e) => setFormData(prev => ({ ...prev, jobType: e.target.value as 'intern' | 'full-time' | 'part-time' | 'remote' }))}
+                        className="mr-2"
+                      />
+                      Part-time
+                    </label>
+                    <label className="flex items-center">
+                      <input
+                        type="radio"
+                        value="remote"
+                        checked={formData.jobType === 'remote'}
+                        onChange={(e) => setFormData(prev => ({ ...prev, jobType: e.target.value as 'intern' | 'full-time' | 'part-time' | 'remote' }))}
+                        className="mr-2"
+                      />
+                      Remote
                     </label>
                   </div>
                 ) : (
