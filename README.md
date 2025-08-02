@@ -1,46 +1,109 @@
-# Getting Started with Create React App
+# 💼 Jame - Job Application Made Easy
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A modern, mobile-first job discovery platform built with React and TypeScript. Discover jobs with Tinder-like swiping, track applications, and get AI-powered career assistance.
 
-## Available Scripts
+## ✨ Features
 
-In the project directory, you can run:
+- 🔍 **Job Discovery**: Swipe through curated job listings from top companies
+- 📊 **Application Tracking**: Manage your interested and applied jobs  
+- 🤖 **AI Career Assistant**: Get personalized resume, cover letter, and interview help
+- 📱 **Mobile-First Design**: Beautiful, responsive UI optimized for mobile
+- 🔄 **Real-time Sync**: Integration with GitHub job repositories
+- 🎨 **Modern UI**: Clean design inspired by modern job platforms
 
-### `npm start`
+## 🚀 Quick Start
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Prerequisites
+- Node.js 16+ 
+- npm or yarn
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Installation
 
-### `npm test`
+1. Clone the repository:
+```bash
+git clone https://github.com/cweim/Jame.git
+cd Jame
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+2. Install dependencies:
+```bash
+npm install
+```
 
-### `npm run build`
+3. Set up environment variables:
+```bash
+cp .env.example .env
+# Add your GROQ API key for AI features
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+4. Start the development server:
+```bash
+npm start
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+5. Open [http://localhost:3000](http://localhost:3000) in your browser
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 🛠️ Built With
 
-### `npm run eject`
+- **React 19** - Frontend framework
+- **TypeScript** - Type safety
+- **Tailwind CSS** - Styling
+- **Framer Motion** - Animations
+- **React Router** - Navigation  
+- **GROQ API** - AI chat functionality
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## 📱 Pages & Features
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- **Job Feed**: Swipe through job listings with smooth animations
+- **Track Dashboard**: Manage applications across different statuses
+- **Job Details**: Detailed view with tabs for description, requirements, and company info
+- **AI Chat**: Career assistance with job-specific context
+- **Settings**: User profile and preferences
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## 🎨 Design System
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- **Primary Color**: #3F51B5 (Indigo)
+- **Typography**: Inter font family
+- **Spacing**: 16px grid system
+- **Components**: Modern cards, chips, and buttons
+- **Animation**: Smooth transitions and micro-interactions
 
-## Learn More
+## 🌐 Deployment
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+This project is ready for deployment on Vercel:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+1. Push to GitHub (this repository)
+2. Connect to Vercel
+3. Set environment variables in Vercel dashboard
+4. Deploy!
+
+### Environment Variables
+
+```env
+REACT_APP_GROQ_API_KEY=your_groq_api_key_here
+```
+
+## 📝 Available Scripts
+
+- `npm start` - Development server
+- `npm build` - Production build  
+- `npm test` - Run tests
+- `npm run build` - Create production build
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit changes (`git commit -m 'Add amazing feature'`)
+4. Push to branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License.
+
+## 🙏 Acknowledgments
+
+- Design inspiration from modern job platforms
+- Job data from speedyapply/2026-SWE-College-Jobs
+- AI assistance powered by GROQ
