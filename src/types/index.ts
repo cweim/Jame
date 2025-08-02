@@ -5,7 +5,7 @@ export interface User {
   portfolio?: string;
   resume?: File | null;
   industries: string[];
-  jobType: 'intern' | 'full-time';
+  jobType: 'intern' | 'full-time' | 'part-time' | 'remote';
   preferredLocations: string[];
 }
 
@@ -14,7 +14,7 @@ export interface Job {
   title: string;
   company: string;
   location: string;
-  type: 'intern' | 'full-time';
+  type: 'intern' | 'full-time' | 'part-time' | 'remote';
   description: string;
   requirements: string[];
   tags: string[];
